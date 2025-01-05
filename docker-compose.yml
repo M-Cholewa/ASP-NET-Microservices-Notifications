@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  Notify.api:
+    image: ${DOCKER_REGISTRY-}notifyapi
+    build:
+      context: .
+      dockerfile: Notify.API/Dockerfile
+
+  notify.services.sender:
+    image: ${DOCKER_REGISTRY-}notifyservicessender
+    build:
+      context: .
+      dockerfile: Services/Notify.Services.Sender/Dockerfile
+
