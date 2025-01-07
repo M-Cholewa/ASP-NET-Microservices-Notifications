@@ -8,6 +8,7 @@ using Notify.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using Notify.Domain.Notifications;
 
 namespace Notify.Infrastructure;
 
@@ -17,6 +18,7 @@ public static class Registry
     {
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
         services.AddScoped<IProductPriceDataApi, ProductPriceDataApi>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();

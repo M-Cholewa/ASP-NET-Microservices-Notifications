@@ -3,6 +3,7 @@ using Notify.Domain.Customers;
 using Notify.Domain.Orders;
 using Notify.Domain.SeedWork;
 using MongoDB.Driver;
+using Notify.Domain.Notifications;
 
 namespace Notify.Infrastructure.Database;
 
@@ -46,6 +47,12 @@ internal sealed class UnitOfWork(
                     {
                         var filter = Builders<Customer>.Filter.Eq(c => c.Id, customer.Id);
                         await _ordersContext.Customers.ReplaceOneAsync(session, filter, customer, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                        break;
+                    }
+                    case Notification notification:
+                    {
+                        var filter = Builders<Notification>.Filter.Eq(c => c.Id, notification.Id);
+                        await _ordersContext.Notifications.ReplaceOneAsync(session, filter, notification, new ReplaceOptions { IsUpsert = true }, cancellationToken);
                         break;
                     }
                     default:

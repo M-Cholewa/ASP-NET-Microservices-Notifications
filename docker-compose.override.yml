@@ -9,6 +9,15 @@ services:
     depends_on:
       - Notify.mongodb
 
+  notify.services.sender:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:3030
+    ports:
+      - "3030:3030"
+    depends_on:
+      - Notify.mongodb
+
   Notify.mongodb:
     image: mongo:7.0
     command: [ "mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017" ]
@@ -26,6 +35,7 @@ services:
     volumes:
       - "mongo1_data:/data/db"
       - "mongo1_config:/data/configdb"
+
 
 volumes:
   mongo1_data:
